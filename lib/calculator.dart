@@ -15,14 +15,15 @@ class _CalculatorState extends State<Calculator> {
   static const String operateMultiply = "×";
   static const String operateDivide = "÷";
   String _operate;
-  int _a;
-  int _b;
+  int _a = 0;
+  int _b = 0;
   int _result;
 
   @override
   void initState() {
     super.initState();
     _operate = operateAdd;
+    _result = _a + _b;
   }
 
   @override
@@ -138,13 +139,25 @@ class _CalculatorState extends State<Calculator> {
           Row(
             children: [
               Expanded(child: Text("二进制", textAlign: TextAlign.center)),
-              Expanded(child: Text(_result.toString()))
+              Expanded(child: Text(_result.toRadixString(2)))
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text("八进制", textAlign: TextAlign.center)),
+              Expanded(child: Text(_result.toRadixString(8)))
             ],
           ),
           Row(
             children: [
               Expanded(child: Text("十进制", textAlign: TextAlign.center)),
               Expanded(child: Text(_result.toString()))
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(child: Text("十六进制", textAlign: TextAlign.center)),
+              Expanded(child: Text(_result.toRadixString(16)))
             ],
           ),
         ],
