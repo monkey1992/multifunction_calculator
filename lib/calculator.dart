@@ -10,8 +10,10 @@ class Calculator extends StatefulWidget {
 }
 
 class CalculatorState extends State<Calculator> {
-  String operate;
-  int result;
+  String _operate;
+  int _a;
+  int _b;
+  int _result;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +25,28 @@ class CalculatorState extends State<Calculator> {
           Row(
             children: [
               Expanded(child: Text("请输入二进制数 A ", textAlign: TextAlign.center)),
-              Expanded(child: TextField(keyboardType: TextInputType.number))
+              Expanded(
+                  child: TextField(
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  this.setState(() {
+                    _a = int.parse(value);
+                  });
+                },
+              ))
             ],
           ),
           Row(
             children: [
               Expanded(child: Text("请输入二进制数 B ", textAlign: TextAlign.center)),
-              Expanded(child: TextField(keyboardType: TextInputType.number))
+              Expanded(
+                  child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        this.setState(() {
+                          _b = int.parse(value);
+                        });
+                      }))
             ],
           ),
           Row(
@@ -37,68 +54,76 @@ class CalculatorState extends State<Calculator> {
               Expanded(
                   child: RadioListTile<String>(
                 value: "+",
-                groupValue: this.operate,
+                groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
-                    this.operate = value;
+                    this._operate = value;
                   });
                 },
                 title: Text("+"),
                 subtitle: Text("加法"),
-                selected: this.operate == "+",
+                selected: this._operate == "+",
               )),
               Expanded(
                   child: RadioListTile<String>(
                 value: "-",
-                groupValue: this.operate,
+                groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
-                    this.operate = value;
+                    this._operate = value;
                   });
                 },
                 title: Text("+"),
                 subtitle: Text("减法"),
-                selected: this.operate == "-",
+                selected: this._operate == "-",
               )),
               Expanded(
                   child: RadioListTile<String>(
                 value: "×",
-                groupValue: this.operate,
+                groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
-                    this.operate = value;
+                    this._operate = value;
                   });
                 },
                 title: Text("+"),
                 subtitle: Text("乘法"),
-                selected: this.operate == "×",
+                selected: this._operate == "×",
               )),
               Expanded(
                   child: RadioListTile<String>(
                 value: "÷",
-                groupValue: this.operate,
+                groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
-                    this.operate = value;
+                    this._operate = value;
                   });
                 },
                 title: Text("+"),
                 subtitle: Text("除法"),
-                selected: this.operate == "÷",
+                selected: this._operate == "÷",
               )),
             ],
           ),
+          ElevatedButton(
+              child: Text("计算"),
+              onPressed: () {
+                this.setState(() {
+                  _result = _a + _b;
+                });
+                Fluttertoast.showToast(msg: "计算 $_a + $_b 的结果为：$_result");
+              }),
           Text("计算结果："),
           Row(
             children: [
               Expanded(child: Text("二进制", textAlign: TextAlign.center)),
-              Expanded(child: Text(result.toString()))
+              Expanded(child: Text(_result.toString()))
             ],
           ),
           Row(
             children: [
               Expanded(child: Text("十进制", textAlign: TextAlign.center)),
-              Expanded(child: Text(result.toString()))
+              Expanded(child: Text(_result.toString()))
             ],
           ),
         ],

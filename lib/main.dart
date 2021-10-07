@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:multifunction_calculator/calculator.dart';
 import 'package:multifunction_calculator/converter.dart';
 
@@ -40,6 +41,7 @@ class MyHomePage extends StatelessWidget {
             return ListTile(
               title: Text(products[index].title),
               onTap: () {
+                Fluttertoast.showToast(msg: "进入");
                 HomeMenu homeMenu = products[index];
                 String id = homeMenu.id;
                 if (id == '计算器') {
