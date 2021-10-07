@@ -21,12 +21,24 @@ class _CalculatorState extends State<Calculator> {
   static const String operateSubtract = "-";
   static const String operateMultiply = "×";
   static const String operateDivide = "÷";
+
+  String _typeName;
   String _operate;
+  String _textFieldAError;
+  String _textFieldBError;
   int _a = 0;
   int _b = 0;
   int _result;
 
-  String _typeName;
+  int _convertNumber(String number) {
+    int radix;
+    if (widget.type == Calculator.type2) {
+      radix = 2;
+    } else {
+      radix = 10;
+    }
+    return int.tryParse(number, radix: radix);
+  }
 
   @override
   void initState() {
@@ -57,25 +69,43 @@ class _CalculatorState extends State<Calculator> {
                   child: TextField(
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  this.setState(() {
-                    _a = int.parse(value);
-                  });
+                  int result = _convertNumber(value);
+                  if (result == null) {
+                    _textFieldAError = "请输入合法的$_typeName数";
+                  } else {
+                    _textFieldAError = null;
+                    this.setState(() {
+                      _a = result;
+                    });
+                  }
                 },
+                decoration: InputDecoration(
+                    hintText: "请输入$_typeName数", errorText: _textFieldAError),
               ))
             ],
           ),
           Row(
             children: [
               Expanded(
-                  child: Text("请输入$_typeName数 B ", textAlign: TextAlign.center)),
+                  child:
+                      Text("请输入$_typeName数 B ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        this.setState(() {
-                          _b = int.parse(value);
-                        });
-                      }))
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  int result = _convertNumber(value);
+                  if (result == null) {
+                    _textFieldBError = "请输入合法的$_typeName数";
+                  } else {
+                    _textFieldBError = null;
+                    this.setState(() {
+                      _b = result;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                    hintText: "请输入$_typeName数", errorText: _textFieldBError),
+              ))
             ],
           ),
           Row(
@@ -137,6 +167,14 @@ class _CalculatorState extends State<Calculator> {
           ElevatedButton(
               child: Text("计算"),
               onPressed: () {
+                if (_textFieldAError != null) {
+                  Fluttertoast.showToast(msg: "请输入合法的$_typeName数 A");
+                  return;
+                }
+                if (_textFieldBError != null) {
+                  Fluttertoast.showToast(msg: "请输入合法的$_typeName数 B");
+                  return;
+                }
                 this.setState(() {
                   if (_operate == operateAdd) {
                     _result = _a + _b;
@@ -150,8 +188,6 @@ class _CalculatorState extends State<Calculator> {
                     }
                   }
                 });
-                Fluttertoast.showToast(
-                    msg: "计算 $_a $_operate $_b 的结果为：$_result");
               }),
           Text("计算结果："),
           Row(
