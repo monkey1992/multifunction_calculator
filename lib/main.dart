@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '多功能计算器',
+      title: '进制计算器',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: '多功能计算器'),
+      home: MyHomePage(title: '进制计算器'),
     );
   }
 }
@@ -26,7 +26,9 @@ class MyHomePage extends StatelessWidget {
   final String title;
   final List<HomeMenu> products = [
     HomeMenu('二进制计算器', '二进制计算器'),
+    HomeMenu('八进制计算器', '八进制计算器'),
     HomeMenu('十进制计算器', '十进制计算器'),
+    HomeMenu('十六进制计算器', '十六进制计算器'),
     HomeMenu('进制转换器', '进制转换器')
   ];
 
@@ -51,12 +53,24 @@ class MyHomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
                               Calculator(type: Calculator.type2)));
+                } else if (id == '八进制计算器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Calculator(type: Calculator.type8)));
                 } else if (id == '十进制计算器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
                               Calculator(type: Calculator.type10)));
+                } else if (id == '十六进制计算器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Calculator(type: Calculator.type16)));
                 } else if (id == '进制转换器') {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Converter()));
