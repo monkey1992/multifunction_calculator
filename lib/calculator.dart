@@ -3,6 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Calculator extends StatefulWidget {
+  static const String type2 = "type2";
+  static const String type10 = "type10";
+
+  final String type;
+
+  const Calculator({Key key, this.type}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _CalculatorState();
@@ -19,11 +26,19 @@ class _CalculatorState extends State<Calculator> {
   int _b = 0;
   int _result;
 
+  String _typeName;
+
   @override
   void initState() {
     super.initState();
     _operate = operateAdd;
     _result = _a + _b;
+    String type = widget.type;
+    if (type == Calculator.type2) {
+      _typeName = "二进制";
+    } else {
+      _typeName = "十进制";
+    }
   }
 
   @override
@@ -35,7 +50,9 @@ class _CalculatorState extends State<Calculator> {
         children: [
           Row(
             children: [
-              Expanded(child: Text("请输入二进制数 A ", textAlign: TextAlign.center)),
+              Expanded(
+                  child:
+                      Text("请输入$_typeName数 A ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
                 keyboardType: TextInputType.number,
@@ -49,7 +66,8 @@ class _CalculatorState extends State<Calculator> {
           ),
           Row(
             children: [
-              Expanded(child: Text("请输入二进制数 B ", textAlign: TextAlign.center)),
+              Expanded(
+                  child: Text("请输入$_typeName数 B ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
                       keyboardType: TextInputType.number,

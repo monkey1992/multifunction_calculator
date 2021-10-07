@@ -25,7 +25,8 @@ class MyHomePage extends StatelessWidget {
 
   final String title;
   final List<HomeMenu> products = [
-    HomeMenu('计算器', '计算器'),
+    HomeMenu('二进制计算器', '二进制计算器'),
+    HomeMenu('十进制计算器', '十进制计算器'),
     HomeMenu('进制转换器', '进制转换器')
   ];
 
@@ -44,9 +45,18 @@ class MyHomePage extends StatelessWidget {
                 Fluttertoast.showToast(msg: "进入");
                 HomeMenu homeMenu = products[index];
                 String id = homeMenu.id;
-                if (id == '计算器') {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Calculator()));
+                if (id == '二进制计算器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Calculator(type: Calculator.type2)));
+                } else if (id == '十进制计算器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Calculator(type: Calculator.type10)));
                 } else if (id == '进制转换器') {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Converter()));
