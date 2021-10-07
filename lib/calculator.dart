@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Calculator extends StatefulWidget {
   static const String type2 = "type2";
+  static const String type8 = "type8";
   static const String type10 = "type10";
+  static const String type16 = "type16";
 
   final String type;
 
@@ -32,8 +34,13 @@ class _CalculatorState extends State<Calculator> {
 
   int _parseNumber(String number) {
     int radix;
-    if (widget.type == Calculator.type2) {
+    String type = widget.type;
+    if (type == Calculator.type2) {
       radix = 2;
+    } else if (type == Calculator.type8) {
+      radix = 8;
+    } else if (type == Calculator.type16) {
+      radix = 16;
     } else {
       radix = 10;
     }
@@ -48,6 +55,10 @@ class _CalculatorState extends State<Calculator> {
     String type = widget.type;
     if (type == Calculator.type2) {
       _typeName = "二进制";
+    } else if (type == Calculator.type8) {
+      _typeName = "八进制";
+    } else if (type == Calculator.type16) {
+      _typeName = "十六进制";
     } else {
       _typeName = "十进制";
     }
