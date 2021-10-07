@@ -71,10 +71,12 @@ class _CalculatorState extends State<Calculator> {
                 onChanged: (value) {
                   int result = _convertNumber(value);
                   if (result == null) {
-                    _textFieldAError = "请输入合法的$_typeName数";
-                  } else {
-                    _textFieldAError = null;
                     this.setState(() {
+                      _textFieldAError = "请输入合法的$_typeName数";
+                    });
+                  } else {
+                    this.setState(() {
+                      _textFieldAError = null;
                       _a = result;
                     });
                   }
@@ -95,10 +97,12 @@ class _CalculatorState extends State<Calculator> {
                 onChanged: (value) {
                   int result = _convertNumber(value);
                   if (result == null) {
-                    _textFieldBError = "请输入合法的$_typeName数";
-                  } else {
-                    _textFieldBError = null;
                     this.setState(() {
+                      _textFieldBError = "请输入合法的$_typeName数";
+                    });
+                  } else {
+                    this.setState(() {
+                      _textFieldBError = null;
                       _b = result;
                     });
                   }
