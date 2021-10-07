@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:multifunction_calculator/constants.dart';
+import 'package:multifunction_calculator/utils.dart';
 
 class Converter extends StatefulWidget {
-  static const String type2 = "type2";
-  static const String type8 = "type8";
-  static const String type10 = "type10";
-  static const String type16 = "type16";
-
   final String type;
 
   const Converter({Key key, this.type}) : super(key: key);
@@ -25,18 +22,7 @@ class _ConverterState extends State<Converter> {
   int _result;
 
   int _parseNumber(String number) {
-    int radix;
-    String type = widget.type;
-    if (type == Converter.type2) {
-      radix = 2;
-    } else if (type == Converter.type8) {
-      radix = 8;
-    } else if (type == Converter.type16) {
-      radix = 16;
-    } else {
-      radix = 10;
-    }
-    return int.tryParse(number, radix: radix);
+    return parseNumber(widget.type, number);
   }
 
   bool isVisible(String type) {
@@ -47,16 +33,7 @@ class _ConverterState extends State<Converter> {
   void initState() {
     super.initState();
     _result = _a;
-    String type = widget.type;
-    if (type == Converter.type2) {
-      _typeName = "二进制";
-    } else if (type == Converter.type8) {
-      _typeName = "八进制";
-    } else if (type == Converter.type16) {
-      _typeName = "十六进制";
-    } else {
-      _typeName = "十进制";
-    }
+    _typeName = getTypeName(widget.type);
   }
 
   @override
@@ -129,7 +106,7 @@ class _ConverterState extends State<Converter> {
                   SizedBox(height: 20)
                 ],
               ),
-              visible: isVisible(Converter.type2)),
+              visible: isVisible(Constants.type2)),
           Visibility(
               child: Column(
                 children: [
@@ -142,7 +119,7 @@ class _ConverterState extends State<Converter> {
                   SizedBox(height: 20)
                 ],
               ),
-              visible: isVisible(Converter.type8)),
+              visible: isVisible(Constants.type8)),
           Visibility(
               child: Column(
                 children: [
@@ -155,7 +132,7 @@ class _ConverterState extends State<Converter> {
                   SizedBox(height: 20)
                 ],
               ),
-              visible: isVisible(Converter.type10)),
+              visible: isVisible(Constants.type10)),
           Visibility(
               child: Column(
                 children: [
@@ -165,7 +142,7 @@ class _ConverterState extends State<Converter> {
                   ])
                 ],
               ),
-              visible: isVisible(Converter.type16)),
+              visible: isVisible(Constants.type16)),
         ],
       )),
     );

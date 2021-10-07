@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:multifunction_calculator/constants.dart';
+import 'package:multifunction_calculator/utils.dart';
 
 class Calculator extends StatefulWidget {
-  static const String type2 = "type2";
-  static const String type8 = "type8";
-  static const String type10 = "type10";
-  static const String type16 = "type16";
-
   final String type;
 
   const Calculator({Key key, this.type}) : super(key: key);
@@ -33,18 +30,7 @@ class _CalculatorState extends State<Calculator> {
   int _result;
 
   int _parseNumber(String number) {
-    int radix;
-    String type = widget.type;
-    if (type == Calculator.type2) {
-      radix = 2;
-    } else if (type == Calculator.type8) {
-      radix = 8;
-    } else if (type == Calculator.type16) {
-      radix = 16;
-    } else {
-      radix = 10;
-    }
-    return int.tryParse(number, radix: radix);
+    return parseNumber(widget.type, number);
   }
 
   @override
@@ -52,16 +38,7 @@ class _CalculatorState extends State<Calculator> {
     super.initState();
     _operate = operateAdd;
     _result = _a + _b;
-    String type = widget.type;
-    if (type == Calculator.type2) {
-      _typeName = "二进制";
-    } else if (type == Calculator.type8) {
-      _typeName = "八进制";
-    } else if (type == Calculator.type16) {
-      _typeName = "十六进制";
-    } else {
-      _typeName = "十进制";
-    }
+    _typeName = getTypeName(widget.type);
   }
 
   @override

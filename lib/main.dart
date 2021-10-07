@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:multifunction_calculator/calculator.dart';
+import 'package:multifunction_calculator/constants.dart';
 import 'package:multifunction_calculator/converter.dart';
 
 void main() {
@@ -55,49 +56,49 @@ class MyHomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Calculator(type: Calculator.type2)));
+                              Calculator(type: Constants.type2)));
                 } else if (id == '八进制计算器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Calculator(type: Calculator.type8)));
+                              Calculator(type: Constants.type8)));
                 } else if (id == '十进制计算器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Calculator(type: Calculator.type10)));
+                              Calculator(type: Constants.type10)));
                 } else if (id == '十六进制计算器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Calculator(type: Calculator.type16)));
+                              Calculator(type: Constants.type16)));
                 } else if (id == '二进制转换器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Converter(type: Converter.type2)));
+                              Converter(type: Constants.type2)));
                 } else if (id == '八进制转换器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Converter(type: Converter.type8)));
+                              Converter(type: Constants.type8)));
                 } else if (id == '十进制转换器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Converter(type: Converter.type10)));
+                              Converter(type: Constants.type10)));
                 } else if (id == '十六进制转换器') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Converter(type: Converter.type16)));
+                              Converter(type: Constants.type16)));
                 }
               },
             );
