@@ -30,7 +30,7 @@ class _CalculatorState extends State<Calculator> {
   int _b = 0;
   int _result;
 
-  int _convertNumber(String number) {
+  int _parseNumber(String number) {
     int radix;
     if (widget.type == Calculator.type2) {
       radix = 2;
@@ -75,7 +75,7 @@ class _CalculatorState extends State<Calculator> {
                       _a = 0;
                     });
                   } else {
-                    int result = _convertNumber(value);
+                    int result = _parseNumber(value);
                     if (result == null) {
                       this.setState(() {
                         _textFieldAError = "请输入合法的$_typeName数";
@@ -109,7 +109,7 @@ class _CalculatorState extends State<Calculator> {
                       _b = 0;
                     });
                   } else {
-                    int result = _convertNumber(value);
+                    int result = _parseNumber(value);
                     if (result == null) {
                       this.setState(() {
                         _textFieldBError = "请输入合法的$_typeName数";
