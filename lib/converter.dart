@@ -118,37 +118,53 @@ class _ConverterState extends State<Converter> {
           Row(children: [Text("转换结果：", textAlign: TextAlign.left)]),
           SizedBox(height: 50),
           Visibility(
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(child: Text("二进制", textAlign: TextAlign.center)),
-                  Expanded(child: Text(_result.toRadixString(2)))
+                  Row(
+                    children: [
+                      Expanded(child: Text("二进制", textAlign: TextAlign.center)),
+                      Expanded(child: Text(_result.toRadixString(2)))
+                    ],
+                  ),
+                  SizedBox(height: 20)
                 ],
               ),
               visible: isVisible(Converter.type2)),
-          SizedBox(height: 20),
           Visibility(
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(child: Text("八进制", textAlign: TextAlign.center)),
-                  Expanded(child: Text(_result.toRadixString(8)))
+                  Row(
+                    children: [
+                      Expanded(child: Text("八进制", textAlign: TextAlign.center)),
+                      Expanded(child: Text(_result.toRadixString(8)))
+                    ],
+                  ),
+                  SizedBox(height: 20)
                 ],
               ),
               visible: isVisible(Converter.type8)),
-          SizedBox(height: 20),
           Visibility(
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(child: Text("十进制", textAlign: TextAlign.center)),
-                  Expanded(child: Text(_result.toString()))
+                  Row(
+                    children: [
+                      Expanded(child: Text("十进制", textAlign: TextAlign.center)),
+                      Expanded(child: Text(_result.toString()))
+                    ],
+                  ),
+                  SizedBox(height: 20)
                 ],
               ),
               visible: isVisible(Converter.type10)),
-          SizedBox(height: 20),
           Visibility(
-              child: Row(children: [
-                Expanded(child: Text("十六进制", textAlign: TextAlign.center)),
-                Expanded(child: Text(_result.toRadixString(16)))
-              ]),
+              child: Column(
+                children: [
+                  Row(children: [
+                    Expanded(child: Text("十六进制", textAlign: TextAlign.center)),
+                    Expanded(child: Text(_result.toRadixString(16)))
+                  ])
+                ],
+              ),
               visible: isVisible(Converter.type16)),
         ],
       )),
