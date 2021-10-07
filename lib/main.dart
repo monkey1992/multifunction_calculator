@@ -29,7 +29,10 @@ class MyHomePage extends StatelessWidget {
     HomeMenu('八进制计算器', '八进制计算器'),
     HomeMenu('十进制计算器', '十进制计算器'),
     HomeMenu('十六进制计算器', '十六进制计算器'),
-    HomeMenu('进制转换器', '进制转换器')
+    HomeMenu('二进制转换器', '二进制转换器'),
+    HomeMenu('八进制转换器', '八进制转换器'),
+    HomeMenu('十进制转换器', '十进制转换器'),
+    HomeMenu('十六进制转换器', '十六进制转换器')
   ];
 
   @override
@@ -71,9 +74,30 @@ class MyHomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
                               Calculator(type: Calculator.type16)));
-                } else if (id == '进制转换器') {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Converter()));
+                } else if (id == '二进制转换器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Converter(type: Converter.type2)));
+                } else if (id == '八进制转换器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Converter(type: Converter.type8)));
+                } else if (id == '十进制转换器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Converter(type: Converter.type10)));
+                } else if (id == '十六进制转换器') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Converter(type: Converter.type16)));
                 }
               },
             );
