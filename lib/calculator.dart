@@ -56,7 +56,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("计算器")),
+      appBar: AppBar(title: Text("$_typeName计算器")),
       body: Center(
           child: Column(
         children: [
