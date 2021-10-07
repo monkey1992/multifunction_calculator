@@ -5,15 +5,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Calculator extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return CalculatorState();
+    return _CalculatorState();
   }
 }
 
-class CalculatorState extends State<Calculator> {
+class _CalculatorState extends State<Calculator> {
+  static const String operateAdd = "+";
+  static const String operateSubtract = "-";
+  static const String operateMultiply = "×";
+  static const String operateDivide = "÷";
   String _operate;
   int _a;
   int _b;
   int _result;
+
+  @override
+  void initState() {
+    super.initState();
+    _operate = operateAdd;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,55 +63,55 @@ class CalculatorState extends State<Calculator> {
             children: [
               Expanded(
                   child: RadioListTile<String>(
-                value: "+",
+                value: operateAdd,
                 groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
                     this._operate = value;
                   });
                 },
-                title: Text("+"),
-                subtitle: Text("加法"),
-                selected: this._operate == "+",
+                title: Text(operateAdd),
+                subtitle: Text("加"),
+                selected: this._operate == operateAdd,
               )),
               Expanded(
                   child: RadioListTile<String>(
-                value: "-",
+                value: operateSubtract,
                 groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
                     this._operate = value;
                   });
                 },
-                title: Text("+"),
-                subtitle: Text("减法"),
-                selected: this._operate == "-",
+                title: Text(operateSubtract),
+                subtitle: Text("减"),
+                selected: this._operate == operateSubtract,
               )),
               Expanded(
                   child: RadioListTile<String>(
-                value: "×",
+                value: operateMultiply,
                 groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
                     this._operate = value;
                   });
                 },
-                title: Text("+"),
-                subtitle: Text("乘法"),
-                selected: this._operate == "×",
+                title: Text(operateMultiply),
+                subtitle: Text("乘"),
+                selected: this._operate == operateMultiply,
               )),
               Expanded(
                   child: RadioListTile<String>(
-                value: "÷",
+                value: operateDivide,
                 groupValue: this._operate,
                 onChanged: (value) {
                   setState(() {
                     this._operate = value;
                   });
                 },
-                title: Text("+"),
-                subtitle: Text("除法"),
-                selected: this._operate == "÷",
+                title: Text(operateDivide),
+                subtitle: Text("除"),
+                selected: this._operate == operateDivide,
               )),
             ],
           ),
@@ -109,9 +119,20 @@ class CalculatorState extends State<Calculator> {
               child: Text("计算"),
               onPressed: () {
                 this.setState(() {
-                  _result = _a + _b;
+                  if (_operate == operateAdd) {
+                    _result = _a + _b;
+                  } else if (_operate == operateSubtract) {
+                    _result = _a - _b;
+                  } else if (_operate == operateMultiply) {
+                    _result = (_a * _b);
+                  } else if (_operate == operateDivide) {
+                    if (_b != 0) {
+                      _result = _a ~/ _b;
+                    }
+                  }
                 });
-                Fluttertoast.showToast(msg: "计算 $_a + $_b 的结果为：$_result");
+                Fluttertoast.showToast(
+                    msg: "计算 $_a $_operate $_b 的结果为：$_result");
               }),
           Text("计算结果："),
           Row(
