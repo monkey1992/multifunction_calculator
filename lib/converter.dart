@@ -21,8 +21,14 @@ class _ConverterState extends State<Converter> {
   int _a = 0;
   int _result;
 
+  FocusNode _textFieldFocusNode = FocusNode();
+
   int _parseNumber(String number) {
     return parseNumber(widget.type, number);
+  }
+
+  String _getIllegalTip() {
+    return getIllegalTip(widget.type);
   }
 
   bool isVisible(String type) {
@@ -49,6 +55,7 @@ class _ConverterState extends State<Converter> {
                   child: Text("请输入$_typeName数 ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
+                focusNode: _textFieldFocusNode,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   if (value == null || value.isEmpty) {
@@ -60,7 +67,7 @@ class _ConverterState extends State<Converter> {
                     int result = _parseNumber(value);
                     if (result == null) {
                       this.setState(() {
-                        _textFieldError = "请输入合法的$_typeName数";
+                        _textFieldError = _getIllegalTip();
                       });
                     } else {
                       this.setState(() {
@@ -71,7 +78,9 @@ class _ConverterState extends State<Converter> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: "请输入$_typeName数", errorText: _textFieldError),
+                    hintText: "请输入$_typeName数",
+                    errorText: _textFieldError,
+                    errorMaxLines: 6),
               ))
             ],
           ),
@@ -79,6 +88,7 @@ class _ConverterState extends State<Converter> {
           ElevatedButton(
             child: Text("开始转换"),
             onPressed: () {
+              _textFieldFocusNode.unfocus();
               if (_textFieldError != null) {
                 Fluttertoast.showToast(msg: "请输入合法的$_typeName数");
                 return;

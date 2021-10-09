@@ -29,8 +29,15 @@ class _CalculatorState extends State<Calculator> {
   int _b = 0;
   int _result;
 
+  FocusNode _textFieldAFocusNode = FocusNode();
+  FocusNode _textFieldBFocusNode = FocusNode();
+
   int _parseNumber(String number) {
     return parseNumber(widget.type, number);
+  }
+
+  String _getIllegalTip() {
+    return getIllegalTip(widget.type);
   }
 
   @override
@@ -55,6 +62,7 @@ class _CalculatorState extends State<Calculator> {
                       Text("请输入$_typeName数 A ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
+                focusNode: _textFieldAFocusNode,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   if (value == null || value.isEmpty) {
@@ -66,7 +74,7 @@ class _CalculatorState extends State<Calculator> {
                     int result = _parseNumber(value);
                     if (result == null) {
                       this.setState(() {
-                        _textFieldAError = "请输入合法的$_typeName数";
+                        _textFieldAError = _getIllegalTip();
                       });
                     } else {
                       this.setState(() {
@@ -77,7 +85,9 @@ class _CalculatorState extends State<Calculator> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: "请输入$_typeName数", errorText: _textFieldAError),
+                    hintText: "请输入$_typeName数",
+                    errorText: _textFieldAError,
+                    errorMaxLines: 6),
               ))
             ],
           ),
@@ -89,6 +99,7 @@ class _CalculatorState extends State<Calculator> {
                       Text("请输入$_typeName数 B ", textAlign: TextAlign.center)),
               Expanded(
                   child: TextField(
+                focusNode: _textFieldBFocusNode,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   if (value == null || value.isEmpty) {
@@ -100,7 +111,7 @@ class _CalculatorState extends State<Calculator> {
                     int result = _parseNumber(value);
                     if (result == null) {
                       this.setState(() {
-                        _textFieldBError = "请输入合法的$_typeName数";
+                        _textFieldBError = _getIllegalTip();
                       });
                     } else {
                       this.setState(() {
@@ -111,7 +122,9 @@ class _CalculatorState extends State<Calculator> {
                   }
                 },
                 decoration: InputDecoration(
-                    hintText: "请输入$_typeName数", errorText: _textFieldBError),
+                    hintText: "请输入$_typeName数",
+                    errorText: _textFieldBError,
+                    errorMaxLines: 6),
               ))
             ],
           ),
@@ -176,6 +189,8 @@ class _CalculatorState extends State<Calculator> {
           ElevatedButton(
             child: Text("开始计算"),
             onPressed: () {
+              _textFieldAFocusNode.unfocus();
+              _textFieldBFocusNode.unfocus();
               if (_textFieldAError != null) {
                 Fluttertoast.showToast(msg: "请输入合法的$_typeName数 A");
                 return;
