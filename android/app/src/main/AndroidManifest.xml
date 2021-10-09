@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xy.multifunction_calculator">
    <application
-        android:label="multifunction_calculator"
+        android:label="进制计算器"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
