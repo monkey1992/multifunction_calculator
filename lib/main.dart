@@ -24,7 +24,7 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-  final List<HomeMenu> products = [
+  final List<HomeMenu> menus = [
     HomeMenu('二进制计算器', '二进制计算器'),
     HomeMenu('八进制计算器', '八进制计算器'),
     HomeMenu('十进制计算器', '十进制计算器'),
@@ -42,12 +42,12 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: ListView.builder(
-          itemCount: products.length,
+          itemCount: menus.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(products[index].title),
+              title: Text(menus[index].title),
               onTap: () {
-                HomeMenu homeMenu = products[index];
+                HomeMenu homeMenu = menus[index];
                 String id = homeMenu.id;
                 if (id == '二进制计算器') {
                   Navigator.push(
