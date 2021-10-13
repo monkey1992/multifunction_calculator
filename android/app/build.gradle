@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.dsl.SigningConfig
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,6 +23,24 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def getSigningConfig(signPropertiesFilePath) {
+    SigningConfig signingConfig = new SigningConfig("signingConfig")
+    File propertiesFile = file(signPropertiesFilePath)
+    if (propertiesFile.exists()) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(propertiesFile))
+        signingConfig.storeFile = file(props['storeFile'])
+        signingConfig.storePassword = props['storePassword']
+        signingConfig.keyAlias = props['keyAlias']
+        signingConfig.keyPassword = props['keyPassword']
+        println('signConfig exits')
+    } else {
+        println('signConfig dose not exist')
+        signingConfig = null
+    }
+    return signingConfig
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -40,31 +60,28 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-    signingConfigs {
-        debug {
-            keyAlias "MultifunctionCalculator"
-            keyPassword "lxj19930103"
-            storeFile file("../sign/multifunction_calculator")
-            storePassword "lxj19930103"
-        }
-        release {
-            keyAlias "MultifunctionCalculator"
-            keyPassword "lxj19930103"
-            storeFile file("../sign/multifunction_calculator")
-            storePassword "lxj19930103"
-        }
-    }
     buildTypes {
         debug {
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig getSigningConfig("../sign/keystore.properties")
         }
         release {
             minifyEnabled true
-            signingConfig signingConfigs.release
+            signingConfig getSigningConfig("../sign/keystore.properties")
         }
     }
-
+    flavorDimensions "default"
+    productFlavors {
+        master {
+            dimension "default"
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def name = "Multifunction_calculator_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${variant.buildType.name}.apk"
+            output.outputFileName = new File(name)
+        }
+    }
 }
 
 flutter {
