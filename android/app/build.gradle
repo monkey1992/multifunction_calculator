@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,18 +36,35 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.xy.multifunction_calculator"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
-    buildTypes {
+    signingConfigs {
+        debug {
+            keyAlias "MultifunctionCalculator"
+            keyPassword "lxj19930103"
+            storeFile file("../sign/multifunction_calculator")
+            storePassword "lxj19930103"
+        }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            keyAlias "MultifunctionCalculator"
+            keyPassword "lxj19930103"
+            storeFile file("../sign/multifunction_calculator")
+            storePassword "lxj19930103"
         }
     }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 flutter {
